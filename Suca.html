@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Auguri Ilenia!</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f9a66c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .gift-container {
+      position: relative;
+      text-align: center;
+    }
+    .message-box {
+      background: #fff8dc;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 1.2rem;
+      color: #333;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .gift-box {
+      width: 280px;
+      height: 160px;
+      background: linear-gradient(135deg, #ff9ff3, #feca57);
+      border: 5px solid #ff2e63;
+      border-radius: 15px;
+      position: relative;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .gift-box::before {
+      content: "CLICCA";
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ff2e63;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .lid {
+      width: 300px;
+      height: 45px;
+      background: #ff2e63;
+      border-radius: 15px;
+      position: absolute;
+      top: -45px;
+      left: -10px;
+      transition: transform 1s ease;
+      z-index: 2;
+    }
+    .open .lid {
+      transform: translateY(-100px) rotate(-10deg);
+    }
+    .open .message-box {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: red;
+      opacity: 0.9;
+      border-radius: 2px;
+      animation: fall 2s ease-out forwards;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="gift-container" onclick="openGift()">
+    <div class="message-box">🎉 Auguri Ilenia! 🎂</div>
+    <div class="gift-box">
+      <div class="lid"></div>
+    </div>
+  </div>
+  <script>
+    function openGift() {
+      const container = document.querySelector('.gift-container');
+      container.classList.add('open');
+      launchConfetti();
+      // Vibrazione per iPhone (se supportata)
+      if (navigator.vibrate) {
+        navigator.vibrate(200);
+      }
+    }
+    function launchConfetti() {
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-10px';
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+  </script>
+</body>
+</html>
